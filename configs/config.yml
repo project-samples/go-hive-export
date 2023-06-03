@@ -1,0 +1,12 @@
+hive:
+  driver: hive
+  host: localhost
+  port: 10000
+  auth: NONE
+
+log:
+  level: info
+  output: logs/app_log-%Y-%m-%d.log
+  map:
+    time: "@timestamp"
+    msg: message
