@@ -3,40 +3,40 @@ package app
 import (
 	"context"
 	"path/filepath"
-	"reflect"
 	"time"
 
-	. "github.com/beltran/gohive"
+	"github.com/beltran/gohive"
 	"github.com/core-go/hive/export"
+	f "github.com/core-go/io/formatter"
+	w "github.com/core-go/io/writer"
 )
 
 type ApplicationContext struct {
-	Export func(ctx context.Context) error
+	Export func(ctx context.Context) (int64, error)
 }
 
-func NewApp(ctx context.Context, conf Config) (*ApplicationContext, error) {
-	configuration := NewConnectConfiguration()
+func NewApp(ctx context.Context, cfg Config) (*ApplicationContext, error) {
+	configuration := gohive.NewConnectConfiguration()
 	configuration.Database = "masterdata"
-	connection, errConn := Connect(conf.Hive.Host, conf.Hive.Port, conf.Hive.Auth, configuration)
+	connection, errConn := gohive.Connect(cfg.Hive.Host, cfg.Hive.Port, cfg.Hive.Auth, configuration)
 	if errConn != nil {
 		return nil, errConn
 	}
 
-	userType := reflect.TypeOf(User{})
-	formatWriter, err := export.NewFixedLengthFormatter(userType)
+	formatter, err := f.NewFixedLengthFormatter[User]()
 	if err != nil {
 		return nil, err
 	}
-	writer, err := export.NewFileWriter(GenerateFileName)
+	writer, err := w.NewFileWriter(GenerateFileName)
 	if err != nil {
 		return nil, err
 	}
-	exportService, err := export.NewExporter(connection, userType, BuildQuery, formatWriter.Format, writer.Write, writer.Close)
+	exporter, err := export.NewExporter[User](connection, BuildQuery, formatter.Format, writer.Write, writer.Close)
 	if err != nil {
 		return nil, err
 	}
 	return &ApplicationContext{
-		Export: exportService.Export,
+		Export: exporter.Export,
 	}, nil
 }
 
@@ -56,6 +56,6 @@ func BuildQuery(ctx context.Context) string {
 func GenerateFileName() string {
 	fileName := time.Now().Format("20060102150405") + ".csv"
 	fullPath := filepath.Join("export", fileName)
-	export.DeleteFile(fullPath)
+	w.DeleteFile(fullPath)
 	return fullPath
 }
