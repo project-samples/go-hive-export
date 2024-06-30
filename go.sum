@@ -8,8 +8,8 @@ github.com/beltran/gssapi v0.0.0-20200324152954-d86554db4bab h1:ayfcn60tXOSYy5zU
 github.com/beltran/gssapi v0.0.0-20200324152954-d86554db4bab/go.mod h1:GLe4UoSyvJ3cVG+DVtKen5eAiaD8mAJFuV5PT3Eeg9Q=
 github.com/core-go/config v1.0.1 h1:ZIfpd+rfyajyePVxe7IKwGtgcJZ7lsbewTzVgfgMZMk=
 github.com/core-go/config v1.0.1/go.mod h1:fHfbCGBNq6FMQneRMtDg8tkTwut3KmmYxcjgbW37+As=
-github.com/core-go/hive v0.7.1 h1:GpahbZ27Ix6j5otLADBz2PgZcglULGuD3ZPoJPGcWWw=
-github.com/core-go/hive v0.7.1/go.mod h1:Zzgt7MVVG/9gcOp0TqCg36qMeI0DsaGm4Ux8pKPN+MU=
+github.com/core-go/hive v0.7.7 h1:xAbd9a9r2fVd0inFyO+hF0fU8FA4HxNL3RYqTjLZUys=
+github.com/core-go/hive v0.7.7/go.mod h1:Zzgt7MVVG/9gcOp0TqCg36qMeI0DsaGm4Ux8pKPN+MU=
 github.com/core-go/io v0.2.7 h1:hs0wN80FpYNR+yIPGBxDMf/dPWTbQV4stEm4FHhoKAs=
 github.com/core-go/io v0.2.7/go.mod h1:sCppNnbU1c+Eff3Oy782QcZdndXoKzeBPSP3UI4jW2w=
 github.com/core-go/log v0.1.2 h1:xZINVk1QMWEojbUhjQ6pqqjUfTZh1Xg+fjmQxKSDDKA=
