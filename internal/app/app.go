@@ -7,7 +7,6 @@ import (
 
 	"github.com/beltran/gohive"
 	"github.com/core-go/hive/export"
-	f "github.com/core-go/io/formatter"
 	w "github.com/core-go/io/writer"
 )
 
@@ -23,7 +22,7 @@ func NewApp(ctx context.Context, cfg Config) (*ApplicationContext, error) {
 		return nil, errConn
 	}
 
-	formatter, err := f.NewFixedLengthFormatter[User]()
+	transformer, err := w.NewFixedLengthFormatter[User]()
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +30,7 @@ func NewApp(ctx context.Context, cfg Config) (*ApplicationContext, error) {
 	if err != nil {
 		return nil, err
 	}
-	exporter, err := export.NewExporter[User](connection, BuildQuery, formatter.Format, writer.Write, writer.Close)
+	exporter, err := export.NewExporter[User](connection, BuildQuery, transformer.Transform, writer.Write, writer.Close)
 	if err != nil {
 		return nil, err
 	}
